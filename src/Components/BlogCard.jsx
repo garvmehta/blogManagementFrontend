@@ -2,7 +2,9 @@ import { Box, Button, Flex, HStack, Image, Text, VStack } from "@chakra-ui/react
 import { AiFillLike, AiOutlineLike } from 'react-icons/ai'
 import { MdOutlineInsertComment } from 'react-icons/md';
 import { RiShareForwardLine } from 'react-icons/ri';
+import { useNavigate } from "react-router-dom";
 const BlogCard = () => {
+    const Nav = useNavigate();
     return (
         <>
             <Flex
@@ -13,11 +15,12 @@ const BlogCard = () => {
                 boxShadow={'md'}
                 rounded={'lg'}
                 style={{
-                    marginBottom:'20px',
-                    marginTop:'10px'
+                    marginBottom: '20px',
+                    marginTop: '10px'
                 }}
             >
-                <VStack align={'flex-start'}>
+                <VStack align={'flex-start'}
+                >
                     <HStack>
                         <Flex
                             align={'center'}
@@ -51,29 +54,37 @@ const BlogCard = () => {
                     >
                         Blog Title
                     </Text>
-                    <Flex
-                        w={'100%'}
-                        h={'35vh'}
-                        align={'center'}
-                        justify={'center'}
-
-                        rounded={'lg'}
-                        overflow='hidden'
+                    <Box
+                        cursor={'pointer'}
+                        onClick={() => {
+                            Nav('/blog')
+                        }}
                     >
-                        <Image
-                            w={'auto'}
-                            h={'100%'}
 
-                            src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80"
-                        />
-                    </Flex>
-                    <Text
-                        fontSize={'md'}
-                        fontWeight={'semibold'}
-                    >
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry....
-                    </Text>
+                        <Flex
+                            w={'100%'}
+                            h={'35vh'}
+                            align={'center'}
+                            justify={'center'}
+
+                            rounded={'lg'}
+                            overflow='hidden'
+                        >
+                            <Image
+                                w={'auto'}
+                                h={'100%'}
+
+                                src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80"
+                            />
+                        </Flex>
+                        <Text
+                            fontSize={'md'}
+                            fontWeight={'semibold'}
+                        >
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry....
+                        </Text>
+                    </Box>
 
                     <HStack
                         py={1}

@@ -1,12 +1,14 @@
 import { HStack, VStack, Text, Button, position } from "@chakra-ui/react";
 import BlogCard from "../../Components/BlogCard";
 import SearchBox from "../../Components/SeachBox";
+import HomeRouting from "../../Routing/HomeRouting";
 
 const Home = () => {
     return <>
         <VStack
+            
             style={{
-                backgroundColor: '#F7F9F9',
+                backgroundColor: '#F8F9F9',
 
             }}
         >
@@ -33,12 +35,9 @@ const Home = () => {
                     bg={'yellow.300'}
                 >Login</Button>
             </HStack>
-
-            {/* BLogs */}
-
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
+            
+            {/* Home Routing */}
+            <HomeRouting/>
 
 
         </VStack>
