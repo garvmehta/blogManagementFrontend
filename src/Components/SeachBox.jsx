@@ -1,16 +1,19 @@
 import { HStack, Input } from "@chakra-ui/react";
 import { FiSearch } from 'react-icons/fi';
 
-const SearchBox = () => {
+const SearchBox = ({style}) => {
     return (
         <HStack
             width={"40%"}
             style={{
-                backgroundColor: 'rgba(255,255,255,1)'
+                ...style,
+                backgroundColor: 'rgba(255,255,255,1)',
             }}
 
             px={2}
             rounded={'lg'}
+            
+            
         >
             <Input
                 bg={'transparent'}
