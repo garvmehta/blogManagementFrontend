@@ -1,7 +1,12 @@
-import { Heading, HStack, VStack, Box, Flex, Text } from "@chakra-ui/react";
+import { Heading, HStack, VStack, Box, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import { useState, useRef, useEffect } from "react";
+import DeleteModal from "../../../Components/DeleteComponent";
+import Table from "../../../Components/TableComponent";
+import { useNavigate, useLocation } from "react-router-dom";
 const AllBlogs = () => {
     const containerRef = useRef(null);
+    const Nav = useNavigate();
+    const currentPath = useLocation().pathname;
     useEffect(() => {
         containerRef.current.style.transform = 'translateY(10%)';
         containerRef.current.style.opacity = 0;
@@ -11,71 +16,115 @@ const AllBlogs = () => {
         }, 400)
     }, [0])
 
-    const TableHead = [
-        {
-            title: 'Sno',
-            minWidth: '5%'
-        },
-        {
-            title: 'Title',
-            minWidth: '20%'
-        }, {
-            title: 'Description',
-            minWidth: '30%'
-        }, {
-            title: 'Thumbnail',
-            minWidth: '10%'
-        }, {
-            title: 'Status',
-            minWidth: '5%'
-        }, {
-            title: 'Actions',
-            minWidth: '25%'
-        },];
+    const openSingleBlog = ()=>{
+        Nav(`/dashboard/singleBlog`)
+    }
+
     const tableData = [
         {
             sNo: 1,
             title: 'this is title',
             description: 'this is desctions',
-            thumbnail:'',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
             status: 'pending'
         },
         {
             sNo: 2,
             title: 'this is title',
-            thumbnail:'',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+            description: 'this is desctions',
+            status: 'pending'
+        },
+        {
+            sNo: 2,
+            title: 'this is title',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+            description: 'this is desctions',
+            status: 'pending'
+        },
+        {
+            sNo: 1,
+            title: 'this is title',
+            description: 'this is desctions',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+            status: 'pending'
+        },
+        {
+            sNo: 2,
+            title: 'this is title',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+            description: 'this is desctions',
+            status: 'pending'
+        },
+        {
+            sNo: 2,
+            title: 'this is title',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+            description: 'this is desctions',
+            status: 'pending'
+        },
+        {
+            sNo: 1,
+            title: 'this is title',
+            description: 'this is desctions',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+            status: 'pending'
+        },
+        {
+            sNo: 2,
+            title: 'this is title',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+            description: 'this is desctions',
+            status: 'pending'
+        },
+        {
+            sNo: 2,
+            title: 'this is title',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+            description: 'this is desctions',
+            status: 'pending'
+        },
+        {
+            sNo: 1,
+            title: 'this is title',
+            description: 'this is desctions',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+            status: 'pending'
+        },
+        {
+            sNo: 2,
+            title: 'this is title',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+            description: 'this is desctions',
+            status: 'pending'
+        },
+        {
+            sNo: 2,
+            title: 'this is title',
+            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
             description: 'this is desctions',
             status: 'pending'
         }
-    ]
-    const getKeyAccordingToIndex = (index)=>{
-        let keyName = ''
-        switch (index) {
-            case 0: keyName = 'sNo'
-                break;
-            case 1: keyName = 'title';
-                break;
-            
-            case 2: keyName = 'description';
-                break;
-            case 3: keyName = 'thumba'
-                break;
-            case 4: keyName = 'action'
-        }
-        return keyName;
-    }
 
+    ]
     return (
         <>
+            
             <VStack
                 ref={containerRef}
                 className="fadeIn"
                 w={'100%'}
+                h={'100%'}
+                overflow={'scroll'}
                 align={'flex-start'}
+                position={'relative'}
             >
                 <Box
                     // border={'1px'}
+
                     width={'100%'}
+                    position={'sticky'}
+                    top={0}
 
                 >
                     <Heading
@@ -87,67 +136,11 @@ const AllBlogs = () => {
                 <Box w={'100%'}>
                     <VStack
                         width={'100%'}
+                        height={'100%'}
+                        position={'relative'}
 
                     >
-                        <HStack
-                            width={'100%'}
-                            // border={'1px'}
-                            bg={'#3498DB'}
-                            p={2}
-                        >
-                            {
-                                TableHead.map((item, index) => {
-                                    return (
-                                        <Box key={index}
-                                            width={item.minWidth}
-                                        >
-                                            <Text
-                                                color={'white'}
-                                            >
-
-                                                {item.title}
-                                            </Text>
-                                        </Box>
-                                    )
-                                })
-
-                            }
-
-
-                        </HStack>
-                        {
-                            tableData.map((row, rowIndex) => {
-                                return (
-                                    <HStack
-                                        width={'100%'}
-                                        // border={'1px'}
-                                        bg={'#D6EAF8'}
-                                        p={2}
-                                    >
-                                        {
-                                            TableHead.map((col, colIndex) => {
-
-                                                return (
-                                                    <Box key={colIndex}
-                                                        width={col.minWidth}
-                                                    >
-                                                        <Text
-                                                            color={'black'}
-                                                        >
-                                                            {row[getKeyAccordingToIndex(colIndex)]}
-
-                                                        </Text>
-                                                    </Box>
-                                                )
-                                            })
-
-                                        }
-
-
-                                    </HStack>
-                                )
-                            })
-                        }
+                        <Table tableData={tableData} moreFun={openSingleBlog}/>
 
 
                     </VStack>

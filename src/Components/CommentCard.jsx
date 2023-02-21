@@ -1,15 +1,13 @@
 import { HStack, Box, Text, Image, VStack } from "@chakra-ui/react"
 
-const CommmentCard = () => {
+const CommmentCard = ({style={marginTop:'5%'}, width='100%', shadow='lg' }) => {
     return <>
         
         <VStack p={2}
-        style={{
-            marginTop:'5%'
-        }}
-        shadow={'lg'}
+        w={width}
+        style={style}
+        shadow={shadow}
         align={'flex-start'}
-        w={'100%'}
         backgroundColor={'rgba(0,0,0,0.02)'}
         rounded={'lg'}
         >

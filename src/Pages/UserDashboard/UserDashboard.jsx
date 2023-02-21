@@ -17,7 +17,7 @@ const UserDashBoard = () => {
         },
         {
             title: 'Create New Blog',
-            to:'/dashboard/new'
+            to:'/dashboard/create'
         }
 
     ]
@@ -93,8 +93,9 @@ const UserDashBoard = () => {
             <VStack
                 width={'85%'}
                 // border={'1px'}
-                height={'100%'}
+                height={'100vh'}
                 px={3}
+                py={2}
 
             >
 
@@ -105,6 +106,7 @@ const UserDashBoard = () => {
                     rounded={'lg'}
                     shadow={'lg'}
                     w={'100%'}
+                    h={'100%'}
                     flexDirection={'column'}
                     px={10}
                     py={4}
