@@ -32,3 +32,66 @@ code {
 .actionButton {
     font-size: 1rem;
 }
+
+/* File Upload Style */
+
+.onlyShow {
+    background: transparent;
+    color: transparent;
+}
+
+/* .addEpisode {
+    svg path {
+        color: $Primary;
+        stroke: $Primary;
+    }
+
+    
+
+        p {
+            color: rgba(233, 233, 233, 0.815);
+            font-weight: 400;
+            font-size: 1rem;
+        }
+    }
+} */
+
+/* p {
+    color: rgba(233, 233, 233, 0.815);
+    font-weight: 400;
+    font-size: 1rem;
+} */
+.thumbnail {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    opacity: 0;
+    
+
+    /* ::-webkit-file-upload-button {
+        z-index: 10;
+        background: transparent;
+        color: transparent;
+        border: none;
+        // padding: 0.5rem 1rem;
+        // width: 35vw;
+        // text-align: end;
+        // cursor: pointer;
+        // top: 20px;
+        // position: absolute !important;
+        // top: 30%;
+        position: relative;
+        top: 0;
+        left: 0;
+    } */
+}
+
+/* TextEditor Style */
+.editor-class{
+    height: 35vh !important;
+    padding: 1%;
+    background-color: #EBEDEF   !important;
+    border:'1px solid gray';
+    border-radius: 5px;
+}
