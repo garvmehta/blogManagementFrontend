@@ -18,6 +18,14 @@ const UserDashBoard = () => {
         {
             title: 'Create New Blog',
             to:'/dashboard/create'
+        },
+        {
+            title: 'All Users',
+            to:'/dashboard/allUsers'
+        },
+        {
+            title: 'Recent Blogs',
+            to:'/dashboard/create'
         }
 
     ]

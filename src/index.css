@@ -95,3 +95,6 @@ code {
     border:'1px solid gray';
     border-radius: 5px;
 }
+.public-DraftStyleDefault-block{
+    margin: 0 !important;
+}
