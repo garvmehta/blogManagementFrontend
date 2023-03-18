@@ -6,15 +6,28 @@ import UserDashBoardHome from "../Pages/UserDashboard/Home/Home"
 import SingleBlog from "../Pages/UserDashboard/SingleBlog.jsx/Screen"
 
 const UserDashboardRouting = () => {
+    const userType = 'user';
     return (
         <>
-            <Routes>
-                <Route exact path={'/'} element={<UserDashBoardHome />} />
-                <Route exact path={'/blogs'} element={<AllBlogs />} />
-                <Route exact path={'/singleBlog'} element={<SingleBlog />} />
-                <Route exact path="/create" element={<CreateBlog />} />
-                <Route exact path="/allUsers" element={<AllUsers />} />
-            </Routes>
+            {(userType == "user") ?
+                <Routes>
+
+                    <Route exact path={'/'} element={<UserDashBoardHome />} />
+                    <Route exact path={'/blogs'} element={<AllBlogs />} />
+                    <Route exact path={'/singleBlog'} element={<SingleBlog />} />
+                    <Route exact path="/create" element={<CreateBlog />} />
+
+                </Routes>
+                :
+                <Routes>
+                    <Route exact path={'/'} element={<UserDashBoardHome />} />
+                    <Route exact path={'/blogs'} element={<AllBlogs />} />
+                    <Route exact path={'/singleBlog'} element={<SingleBlog />} />
+                    <Route exact path="/create" element={<CreateBlog />} />
+                    <Route exact path="/allUsers" element={<AllUsers />} />
+                </Routes>
+            }
+
         </>
     )
 }

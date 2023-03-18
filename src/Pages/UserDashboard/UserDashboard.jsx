@@ -1,34 +1,62 @@
 import { Flex, HStack, VStack, Text, Box, Button } from "@chakra-ui/react"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import SearchBox from "../../Components/SeachBox"
 import UserDashboardRouting from "../../Routing/UserDashboardRouting"
 import { useNavigate } from "react-router-dom"
-const UserDashBoard = () => {
-    const [activePage, setActivePage] = useState(0);
-    const Nav = useNavigate();
-    const Pages = [
-        {
-            title: 'Home',
-            to:'/dashboard'
-        },
-        {
-            title: 'All Blogs',
-            to:'/dashboard/blogs'
-        },
-        {
-            title: 'Create New Blog',
-            to:'/dashboard/create'
-        },
-        {
-            title: 'All Users',
-            to:'/dashboard/allUsers'
-        },
-        {
-            title: 'Recent Blogs',
-            to:'/dashboard/create'
-        }
 
-    ]
+const getPagesByUserType = (userType)=>{
+    console.log('call page')
+    if(userType == 'user'){
+        return [
+            {
+                title: 'Home',
+                to:'/dashboard'
+            },
+            {
+                title: 'All Blogs',
+                to:'/dashboard/blogs'
+            },
+            {
+                title: 'Create New Blog',
+                to:'/dashboard/create'
+            },
+                
+        ]
+    }
+    else{
+        return[
+            {
+                title: 'Home',
+                to:'/dashboard'
+            },
+            {
+                title: 'All Blogs',
+                to:'/dashboard/blogs'
+            },
+            {
+                title: 'Create New Blog',
+                to:'/dashboard/create'
+            },
+            {
+                title: 'All Users',
+                to:'/dashboard/allUsers'
+            },
+            {
+                title: 'Recent Blogs',
+                to:'/dashboard/create'
+            }
+    
+        ]
+    }
+}
+const UserDashBoard = () => {
+    const [userType, setUserType] = useState('user');
+    const [activePage, setActivePage] = useState(0);
+    const Pages = useMemo(()=>{
+        return getPagesByUserType(userType);
+    },[userType]);
+    // const Pages = getPagesByUserType(userType);
+    const Nav = useNavigate();
     const clickToPageButton = (index,to) => {
         setActivePage(index);
         Nav(to);
