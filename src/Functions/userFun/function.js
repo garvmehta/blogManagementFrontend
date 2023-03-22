@@ -1,6 +1,7 @@
+import { async } from "q";
 import { baseUrl, Response } from "../../Config/constant"
 
-
+// Login User Function
 export const loginFun = async ({email, password})=>{
     try{
         const body = {
@@ -30,7 +31,7 @@ export const loginFun = async ({email, password})=>{
     }
     
 }
-
+// Signup User Function
 export const signupFun = async ({name, email,password, type})=>{
     try{    
         const body = {
@@ -56,7 +57,7 @@ export const signupFun = async ({name, email,password, type})=>{
             return response
     }
 }
-
+// Forget password User Function
 export const forgetPasswordFun = async ({email,password})=>{
     try{    
         const body = {
@@ -68,6 +69,50 @@ export const forgetPasswordFun = async ({email,password})=>{
         const res = await baseUrl.put('/users/forget', body);
         if(res.data.status){
             const response = new Response({status:true, response:res.data.data,});
+            console.log(response);
+            return response 
+        }
+        else{
+            const response = new Response({errorMessage:res.data.message});
+            console.log(response);
+            return response
+        }
+    }catch(catchError){
+        const response = new Response({errorMessage:catchError});
+            console.log(response);
+            return response
+    }
+}
+// delete User Function
+export const deleteuserFun = async ({userId})=>{
+    try{    
+        
+        const res = await baseUrl.delete(`/users/delete/${userId}`);
+        console.log(res.data);
+        if(res.data.status){
+            const response = new Response({status:true});
+            console.log(response);
+            return response 
+        }
+        else{
+            const response = new Response({errorMessage:res.data.message});
+            console.log(response);
+            return response
+        }
+    }catch(catchError){
+        const response = new Response({errorMessage:catchError});
+            console.log(response);
+            return response
+    }
+}
+// get all User Function
+export const getAllUserFun = async()=>{
+    try{    
+        
+        const res = await baseUrl.get(`/users/all`);
+        console.log(res.data);
+        if(res.data.status){
+            const response = new Response({status:true, response: res.data.data});
             console.log(response);
             return response 
         }
