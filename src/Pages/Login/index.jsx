@@ -2,7 +2,8 @@ import { Box, Flex, Heading, VStack, Text, Button } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import TextInput from "../../Components/TextInput";
-import { deleteuserFun, forgetPasswordFun, getAllUserFun, loginFun, signupFun } from "../../Functions/userFun/function";
+import { getAllBlogFun } from "../../Functions/blogsFun";
+import { deleteuserFun, forgetPasswordFun, getAllUserFun, loginFun, signupFun } from "../../Functions/userFun";
 const Login = () => {
     useEffect(()=>{
         // loginFun({email:'nadeem@gmail.com',password:'123456'});
@@ -10,6 +11,7 @@ const Login = () => {
         // forgetPasswordFun({email:'garvmehta@gmail.com', password:'123456789'});
         // deleteuserFun({userId:"641a8dec362aa39fdd018f96"});
         // getAllUserFun();
+        getAllBlogFun();
     },[])
     return (<>
         <Flex bg={'blue.200'} align={'center'} justify={'center'} w='100%' h={'100vh'} >
