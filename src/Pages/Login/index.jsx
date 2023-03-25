@@ -1,32 +1,41 @@
 import { Box, Flex, Heading, VStack, Text, Button } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import TextInput from "../../Components/TextInput";
-import { deleteBlogFun, editBlogFun, getAllBlogFun } from "../../Functions/blogsFun";
-import {
-  deleteuserFun,
-  forgetPasswordFun,
-  getAllUserFun,
-  loginFun,
-  signupFun,
-} from "../../Functions/userFun";
+import * as yup from 'yup';
+import { useFormik } from "formik";
+import { loginFun } from "../../Functions/userFun";
+const loginSchema = yup.object({
+  email: yup.string().required().email("Email is not valid"),
+  password: yup.string().required().min(6,"Password must be at least 6 characters long")
+})
+
+ const initialValues  = {
+  email:'',
+  password:''
+ }
 const Login = () => {
-  useEffect(() => {
-    // loginFun({email:'nadeem@gmail.com',password:'123456'});
-    // signupFun({name:'garv',email:'garvmehta@gmail.com',password:'1234567', type:'admin'})
-    // forgetPasswordFun({email:'garvmehta@gmail.com', password:'123456789'});
-    // deleteuserFun({userId:"641a8dec362aa39fdd018f96"});
-    // getAllUserFun();
-    // getAllBlogFun();
-    // editBlogFun({
-    //   blogId: "64155b6df5675b35526a26d9",
-    //   toUpdate: {
-    //     title: "letest Blog ",
-    //     description: "new blog commming soon",
-    //   },
-    // });
-    // deleteBlogFun({blogId:'64155b6df5675b35526a26d9'});
-  }, []);
+  const [ isLoading, setIsLoading] = useState(false);
+  const [ errorMessage, setErrorMessage] = useState("");
+  const loginForm = useFormik({
+    initialValues,
+    validationSchema: loginSchema,
+    onSubmit:(values)=>{LoginFun(values)}
+  })
+  const LoginFun = async(values)=>{
+    try{
+      const response = await loginFun({email:values.email, password:values.password});
+      if(response.status){
+          
+      }
+      else{
+        setErrorMessage(response.errorMessage);
+      }
+    }catch(error){
+
+    }
+  }
+
   return (
     <>
       <Flex
@@ -44,6 +53,7 @@ const Login = () => {
           rounded={"lg"}
           boxShadow={"md"}
         >
+
           <Flex direction={"column"} align={"center"}>
             <Heading size={"md"} fontWeight={"medium"}>
               Login
@@ -56,14 +66,23 @@ const Login = () => {
             title={"Email"}
             placeholder={"Enter Email"}
             type={"email"}
+            name={'email'}
+            value={loginForm.values.email}
+            onChange={loginForm.handleChange}
+            error={loginForm.errors.email}
           />
           <TextInput
             title={"Password"}
             placeholder={"Enter Password"}
             type={"password"}
+            name={'password'}
+            value={loginForm.values.password}
+            onChange={loginForm.handleChange}
+            error={loginForm.errors.password}
           />
+          <Text fontSize={'11px'} px={2} py={1}  color={'red.300'}>{errorMessage}</Text>
           <Box py={"1"} w={"100%"}>
-            <Button bg={"blue.300"} w={"100%"} color={"white"}>
+            <Button isLoading={isLoading} bg={"blue.300"} w={"100%"} color={"white"} onClick={loginForm.handleSubmit}>
               Login
             </Button>
           </Box>
