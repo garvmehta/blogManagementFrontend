@@ -1,67 +1,76 @@
 import { Flex, HStack, VStack, Text, Box, Button } from "@chakra-ui/react"
-import { useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import SearchBox from "../../Components/SeachBox"
 import UserDashboardRouting from "../../Routing/UserDashboardRouting"
 import { useNavigate } from "react-router-dom"
-
-const getPagesByUserType = (userType)=>{
+import { useDispatch, useSelector } from "react-redux"
+import { logoutUser } from "../../Store/Slices/userSlice"
+const getPagesByUserType = (userType) => {
     console.log('call page')
-    if(userType == 'user'){
+    if (userType == 'user') {
         return [
             {
                 title: 'Home',
-                to:'/dashboard'
+                to: '/dashboard'
             },
             {
                 title: 'All Blogs',
-                to:'/dashboard/blogs'
+                to: '/dashboard/blogs'
             },
             {
                 title: 'Create New Blog',
-                to:'/dashboard/create'
+                to: '/dashboard/create'
             },
-                
+
         ]
     }
-    else{
-        return[
+    else {
+        return [
             {
                 title: 'Home',
-                to:'/dashboard'
+                to: '/dashboard'
             },
             {
                 title: 'All Blogs',
-                to:'/dashboard/blogs'
+                to: '/dashboard/blogs'
             },
             {
                 title: 'Create New Blog',
-                to:'/dashboard/create'
+                to: '/dashboard/create'
             },
             {
                 title: 'All Users',
-                to:'/dashboard/allUsers'
+                to: '/dashboard/allUsers'
             },
             {
                 title: 'Recent Blogs',
-                to:'/dashboard/create'
+                to: '/dashboard/create'
             }
-    
+
         ]
     }
 }
 const UserDashBoard = () => {
-    const [userType, setUserType] = useState('user');
+    const userDispatch = useDispatch();
+    const UserState = useSelector((state)=> state.user);
     const [activePage, setActivePage] = useState(0);
-    const Pages = useMemo(()=>{
-        return getPagesByUserType(userType);
-    },[userType]);
-    // const Pages = getPagesByUserType(userType);
     const Nav = useNavigate();
-    const clickToPageButton = (index,to) => {
+    const Pages = useMemo(() => {
+        return getPagesByUserType(UserState.type);
+    }, [UserState.type]);
+    // const Pages = getPagesByUserType(userType);
+    const clickToPageButton = (index, to) => {
         setActivePage(index);
         Nav(to);
     }
+    const logOutFun = () => {
+        userDispatch(logoutUser())
+        Nav('/');
+    }
 
+    useEffect(()=>{
+        if(!UserState.logged){Nav('/')};
+    },[UserState.logged])
     return (
 
 
@@ -108,8 +117,8 @@ const UserDashBoard = () => {
                                     rounded={'md'}
                                     // shadow={'md'}
                                     cursor={'pointer'}
-                                    onClick={() => { clickToPageButton(index,item.to) }}
-                                    bg={(activePage == index) && 'rgba(255,255,255,0.4)'}
+                                    onClick={() => { clickToPageButton(index, item.to) }}
+                                    bg={(activePage === index) && 'rgba(255,255,255,0.4)'}
 
                                 >
                                     <Text
@@ -161,7 +170,7 @@ const UserDashBoard = () => {
                             }}
                         />
                         <Button
-
+                            onClick={logOutFun}
                         >
                             Logout
                         </Button>

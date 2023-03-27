@@ -1,6 +1,8 @@
 
 import { baseUrl, Response } from "../../Config/constant"
-
+import Store from "../../Store";
+import { addUser } from "../../Store/Slices/userSlice";
+const {dispatch} = Store;
 // Login User Function
 export const loginFun = async ({email, password})=>{
     try{
@@ -10,11 +12,11 @@ export const loginFun = async ({email, password})=>{
         };
     
          const res =  await baseUrl.post('/users/login', body);
-         console.log(res.data);
+        //  console.log(res.data);
          if(res.data.status){
+            dispatch(addUser(res.data.data));
              return {
                 status: true,
-                response:res.data.data,
              }
 
          }else{
@@ -40,10 +42,12 @@ export const signupFun = async ({name, email,password, type})=>{
             password,
             type
         }
+        // console.log(body);
         const res = await baseUrl.post('/users/signup', body);
         if(res.data.status){
             const response = new Response({status:true, response:res.data.data,});
             console.log(response);
+            dispatch(addUser(res.data.data));
             return response 
         }
         else{

@@ -1,15 +1,18 @@
 import { baseUrl, Response } from "../../Config/constant";
-
-export const getAllBlogFun = async ()=>{
+import Store from '../../Store';
+import { addBlogs } from "../../Store/Slices/blogSlice";
+const {dispatch}  = Store;
+export const getAllBlogFun = async ({status, userId})=>{
     try{
         
     
-         const res =  await baseUrl.get('/blogs/all');
+         const res =  await baseUrl.get(`/blogs/getByStatus/?status=${status}&userId=${userId}`);
+         
          console.log(res.data);
          if(res.data.status){
+            dispatch(addBlogs(res.data.data))
              return {
                 status: true,
-                response:res.data.data,
              }
 
          }else{

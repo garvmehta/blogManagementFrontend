@@ -3,14 +3,14 @@ import { AiFillLike, AiOutlineLike } from 'react-icons/ai'
 import { MdOutlineInsertComment } from 'react-icons/md';
 import { RiShareForwardLine } from 'react-icons/ri';
 import { useNavigate } from "react-router-dom";
-const BlogCard = () => {
+const BlogCard = ({ userName, title, description, thumnail, isLiked }) => {
     const Nav = useNavigate();
     return (
         <>
             <Flex
                 // border={'1px'}
                 bg={'white'}
-                w={'40%'}
+                w={'35vw'}
                 p={4}
                 boxShadow={'md'}
                 rounded={'lg'}
@@ -20,30 +20,36 @@ const BlogCard = () => {
                 }}
             >
                 <VStack align={'flex-start'}
+                    w={"100%"}
                 >
-                    <HStack>
+                    <HStack w={"100%"}>
                         <Flex
                             align={'center'}
+
                         >
-                            <Box
+                            <Flex
                                 rounded={'full'}
                                 overflow={'hidden'}
-                                w={'40px'}
-
-                                h={'40px'}>
-                                <Image
+                                w={'30px'}
+                                align={"center"}
+                                bg={'blue.300'}
+                                justifyContent={'center'}
+                                h={'30px'}>
+                                <Text fontWeight={'semibold'} color={'white'} textTransform={'capitalize'} >{String(userName).charAt(0)}</Text>
+                                {/* <Image
                                     h={'100%'}
                                     w={'100%'}
                                     src="https://bit.ly/dan-abramov"
-                                />
-                            </Box>
+                                /> */}
+                            </Flex>
 
                             <Text
-                                fontSize={'sm   '}
-                                px={1}
+                                fontSize={'sm'}
+                                px={2}
+                                textTransform={'capitalize'}
                                 fontWeight={'semibold'}
                             >
-                                UserName
+                                {userName}
                             </Text>
                         </Flex>
                     </HStack>
@@ -52,9 +58,13 @@ const BlogCard = () => {
                         fontSize={'md'}
                         fontWeight={'bold'}
                     >
-                        Blog Title
+                        {String(title).substring(0, 20)}
+                        {
+                            `${(title.length > 20) ? `...` : ``}`
+                        }
                     </Text>
                     <Box
+                        w={"100%"}
                         cursor={'pointer'}
                         onClick={() => {
                             Nav('/blog')
@@ -74,15 +84,17 @@ const BlogCard = () => {
                                 w={'auto'}
                                 h={'100%'}
 
-                                src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80"
+                                src={thumnail}
                             />
                         </Flex>
                         <Text
                             fontSize={'md'}
                             fontWeight={'semibold'}
                         >
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry....
+                            {String(description).substring(0, 20)}
+                            {
+                                `${(description.length > 20) ? `...` : ``}`
+                            }
                         </Text>
                     </Box>
 
@@ -94,10 +106,18 @@ const BlogCard = () => {
                         <Button variant={'unstyled'}>
 
                             <Flex align={'center'}>
-                                <AiOutlineLike
-                                    // color={'#4299e1'}
-                                    size={20}
-                                />
+                                {
+                                    (isLiked) ?
+                                        <AiFillLike
+                                            color={'#4299e1'}
+                                            size={20}
+                                        />
+                                        : <AiOutlineLike
+                                            // color={'#4299e1'}
+                                            size={20}
+                                        />
+                                }
+
                                 <Text px={1} fontWeight={'semibold'} >
                                     Like
                                 </Text>

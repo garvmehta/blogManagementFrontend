@@ -5,6 +5,7 @@ import TextInput from "../../Components/TextInput";
 import * as yup from 'yup';
 import { useFormik } from "formik";
 import { loginFun } from "../../Functions/userFun";
+import { useNavigate } from "react-router-dom";
 const loginSchema = yup.object({
   email: yup.string().required().email("Email is not valid"),
   password: yup.string().required().min(6,"Password must be at least 6 characters long")
@@ -15,6 +16,7 @@ const loginSchema = yup.object({
   password:''
  }
 const Login = () => {
+  const Nav  = useNavigate()
   const [ isLoading, setIsLoading] = useState(false);
   const [ errorMessage, setErrorMessage] = useState("");
   const loginForm = useFormik({
@@ -23,19 +25,28 @@ const Login = () => {
     onSubmit:(values)=>{LoginFun(values)}
   })
   const LoginFun = async(values)=>{
+    setIsLoading(true);
     try{
       const response = await loginFun({email:values.email, password:values.password});
       if(response.status){
-          
+          setIsLoading(false);
+          Nav('/dashboard');
       }
       else{
+        setIsLoading(false);
         setErrorMessage(response.errorMessage);
       }
     }catch(error){
-
+      
     }
   }
 
+  useEffect(()=>{
+    setTimeout(()=>{
+
+      setErrorMessage("")
+    },3000)
+  },[errorMessage])
   return (
     <>
       <Flex
@@ -89,6 +100,11 @@ const Login = () => {
           <Link to={"/forget"}>
             <Button variant={"link"} fontWeight={"normal"} fontSize={"sm"}>
               Forget Password
+            </Button>
+          </Link>
+          <Link to={"/sign-up"}>
+            <Button variant={"link"} fontWeight={"normal"} fontSize={"sm"}>
+              Create Your Account
             </Button>
           </Link>
         </VStack>

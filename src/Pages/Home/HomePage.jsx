@@ -1,14 +1,33 @@
-import { HStack, VStack, Text, Button, position, Flex } from "@chakra-ui/react";
-import {  useNavigate } from "react-router-dom";
-import BlogCard from "../../Components/BlogCard";
+import { HStack, VStack, Text, Button, Flex } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+// import BlogCard from "../../Components/BlogCard";
 import SearchBox from "../../Components/SeachBox";
 import HomeRouting from "../../Routing/HomeRouting";
+import { useSelector, } from "react-redux";
+import { useEffect } from "react";
+import { getAllBlogFun } from "../../Functions/blogsFun";
 
 const Home = () => {
     const Nav = useNavigate();
 
+    const UserState = useSelector((state) => state.user);
     const goToDashboard = () => {
         Nav('/dashboard')
+    }
+
+    useEffect(() => {
+        console.log(UserState);
+        getPublishedBlogs();
+
+    }, [0])
+    const getPublishedBlogs = async () => {
+        await getAllBlogFun({ status: 'approved', userId: UserState._id });
+        // if(res.status){
+        //    con 
+        // }
+        // else{
+
+        // }
     }
     return <>
         <VStack
@@ -40,22 +59,30 @@ const Home = () => {
                 <Flex
 
                 >
+                    {
+                        (UserState.logged) ?
+                            <Button
+                                mx={2}
+                                bg={'white'}
+                                rounded={'md'}
+                                color={'blue.300'}
+                                onClick={goToDashboard}
+                            >Go To Dashbord</Button> :
+                            <Button
+                                onClick={() => {
+                                    Nav('/login')
+                                }}
 
-                    <Button
-                        mx={2}
-                        bg={'white'}
-                        rounded={'md'}
-                        color={'blue.300'}
-                        onClick={goToDashboard}
-                    >Go To Dashbord</Button>
-                    <Button
+                                px={5}
+                                // rounded={'sm'}
+                                bg={'red.300'}
+                                color={'white'}
+                            >Login</Button>
+                    }
 
 
-                        px={5}
-                        // rounded={'sm'}
-                        bg={'red.300'}
-                        color={'white'}
-                    >Login</Button>
+
+
                 </Flex>
             </HStack>
 
