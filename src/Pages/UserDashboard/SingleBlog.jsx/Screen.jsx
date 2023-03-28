@@ -3,7 +3,16 @@ import AnimatedSection from "../../../Components/AnimatedSection";
 import { primaryColor } from "../../../constant";
 import { AiOutlineLike } from 'react-icons/ai';
 import CommmentCard from "../../../Components/CommentCard";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { url } from "../../../Config/constant";
+
 const SingleBlog = () => {
+    const location = useLocation();
+    const index = location.state.index;
+    const userBlogs = useSelector((state)=>state.dashboard.allUserBlogs) 
+    console.log(index, 'index');
+    console.log(userBlogs[index], 'blog');
     return (
         <>
             {/* <Text>fdkdsf</Text> */}
@@ -19,7 +28,7 @@ const SingleBlog = () => {
                     >
                         <Image
 
-                            src={'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80'}
+                            src={`${url}/image/${userBlogs[index].thumbnail}`}
                         />
                     </Box>
                     <Flex
@@ -32,7 +41,7 @@ const SingleBlog = () => {
                             <Heading
                                 fontSize={'2xl'}
 
-                            >Title</Heading>
+                            >{userBlogs[index].title}</Heading>
                             <Flex
                             direction={'column'}
                             align={'center'}
@@ -43,14 +52,12 @@ const SingleBlog = () => {
                                 />
                                 <Heading fontSize={'lg'} color={primaryColor}>
 
-                                    23K</Heading>
+                                {userBlogs[index].totalLikes}</Heading>
 
                             </Flex>
                         </HStack>
                         <Text>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis vel ut accusantium placeat dolorem corporis incidunt eum fugit quisquam nobis eius omnis nulla perferendis, sint fuga voluptates rerum quam ipsam.
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis vel ut accusantium placeat dolorem corporis incidunt eum fugit quisquam nobis eius omnis nulla perferendis, sint fuga voluptates rerum quam ipsam.
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis vel ut accusantium placeat dolorem corporis incidunt eum fugit quisquam nobis eius omnis nulla perferendis, sint fuga voluptates rerum quam ipsam.
+                            {userBlogs[index].description}
                         </Text>
                     </Flex>
                 </HStack>
@@ -71,8 +78,8 @@ const SingleBlog = () => {
                 height={'44vh'}
                 >
                     {
-                        new Array(12).fill(1).map((item, index)=>{
-                            return<CommmentCard key={index} style={{margin:'10px'}} width={'90%'} shadow={'md'}/>
+                         userBlogs[index].comments.map((item, index)=>{
+                            return<CommmentCard key={index} style={{margin:'10px'}} width={'90%'} shadow={'md'} data={{userName:item.name, comment: item.comment}}/>
                         })
                     }
                     

@@ -1,15 +1,21 @@
 import { HStack, Box, Text, Button, Image , useDisclosure} from "@chakra-ui/react"
+import { useState } from "react";
+import { url } from "../Config/constant";
 import { primaryColor } from "../constant";
 import DeleteModal from "./DeleteComponent";
 const tableRowBg = '#D6EAF8';
-const Table = ({ tableData, editFun, moreFun }) => {
+const Table = ({ tableData, editFun, moreFun , deleteAction }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const deleteFun =()=>{
+    const [index, setIndex] = useState(0);
+    const deleteFun =(index)=>{
         onOpen();
+        setIndex(index);
     }
+    
+
     return (
         <>
-            <DeleteModal isOpen={isOpen} onClose={onClose}/>        
+            <DeleteModal isOpen={isOpen} onClose={onClose} action={deleteAction} index={index}/>        
             <HStack
                 position={'sticky'}
                 top={0}
@@ -60,7 +66,7 @@ const Table = ({ tableData, editFun, moreFun }) => {
                     </Text>
                 </Box>
                 <Box
-                    width={"7%"}
+                    width={"10%"}
                 >
                     <Text
                         color={'white'}
@@ -98,7 +104,7 @@ const Table = ({ tableData, editFun, moreFun }) => {
                                 <Text
                                     color={'black'}
                                 >
-                                    {row.sNo}
+                                    {index +1}
 
                                 </Text>
                             </Box>
@@ -134,18 +140,18 @@ const Table = ({ tableData, editFun, moreFun }) => {
                                 >
                                     <Image
 
-                                        src={`${row.thumbnail}}`}
+                                        src={`${url}/image/${row.thumbnail}`}
                                     />
 
                                 </Box>
                             </Box>
                             <Box
-                                width={"7%"}
+                                width={"10%"}
                             >
                                 <Text
                                     color={'white'}
                                     fontSize={'12'}
-                                    bg={'yellow.300'}
+                                    bg={`${(row.status ==="pending")?"yellow.300":"green.300"}`}
                                     align={'center'}
                                     px={2}
                                     py={1}
@@ -170,7 +176,9 @@ const Table = ({ tableData, editFun, moreFun }) => {
                                         py={1}
                                         shadow='sm'
                                         borderRadius={'full'}
-                                        onClick={moreFun}
+                                        onClick={()=>{
+                                            moreFun(index);
+                                        }}
                                     >
                                         <Text
                                             fontSize={'sm'}
@@ -186,7 +194,9 @@ const Table = ({ tableData, editFun, moreFun }) => {
                                         py={1}
                                         shadow='sm'
                                         borderRadius={'full'}
-                                        onClick={editFun}
+                                        onClick={()=>{
+                                            editFun(index)
+                                        }}
                                     >
                                         <Text
                                             fontSize={'sm'}
@@ -202,7 +212,7 @@ const Table = ({ tableData, editFun, moreFun }) => {
                                         py={1}
                                         shadow='sm'
                                         borderRadius={'full'}
-                                        onClick={deleteFun}
+                                        onClick={()=>{deleteFun(index)}}
                                     >
                                         <Text
                                             fontSize={'sm'}

@@ -19,7 +19,8 @@ const getPagesByUserType = (userType) => {
             },
             {
                 title: 'Create New Blog',
-                to: '/dashboard/create'
+                to: '/dashboard/create',
+                state:{type : 'create' }
             },
 
         ]
@@ -59,9 +60,9 @@ const UserDashBoard = () => {
         return getPagesByUserType(UserState.type);
     }, [UserState.type]);
     // const Pages = getPagesByUserType(userType);
-    const clickToPageButton = (index, to) => {
+    const clickToPageButton = (index, to, state={ }) => {
         setActivePage(index);
-        Nav(to);
+        Nav(to, {state:state});
     }
     const logOutFun = () => {
         userDispatch(logoutUser())
@@ -117,7 +118,7 @@ const UserDashBoard = () => {
                                     rounded={'md'}
                                     // shadow={'md'}
                                     cursor={'pointer'}
-                                    onClick={() => { clickToPageButton(index, item.to) }}
+                                    onClick={() => { clickToPageButton(index, item.to, item?.state) }}
                                     bg={(activePage === index) && 'rgba(255,255,255,0.4)'}
 
                                 >

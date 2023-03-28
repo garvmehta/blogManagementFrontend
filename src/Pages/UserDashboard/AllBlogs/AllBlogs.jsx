@@ -3,110 +3,33 @@ import { useState, useRef, useEffect } from "react";
 import DeleteModal from "../../../Components/DeleteComponent";
 import Table from "../../../Components/TableComponent";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { deleteBlogFun } from "../../../Functions/blogsFun";
 const AllBlogs = () => {
+    const userAllBlogs = useSelector((state)=> state.dashboard.allUserBlogs)
     const containerRef = useRef(null);
     const Nav = useNavigate();
     const currentPath = useLocation().pathname;
     useEffect(() => {
+        console.log(userAllBlogs, 'user blogs');
         containerRef.current.style.transform = 'translateY(10%)';
         containerRef.current.style.opacity = 0;
         setTimeout(() => {
             containerRef.current.style.transform = 'translateY(0%)';
             containerRef.current.style.opacity = 1;
         }, 400)
-    }, [0])
-
-    const openSingleBlog = ()=>{
-        Nav(`/dashboard/singleBlog`)
+    }, [])
+    const deleteBlog = async(index)=>{
+        console.log(index, 'index');
+         const res = await deleteBlogFun({index,id:userAllBlogs[index]._id})
+         console.log(res, 'delete blog');
     }
-
-    const tableData = [
-        {
-            sNo: 1,
-            title: 'this is title',
-            description: 'this is desctions',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            status: 'pending'
-        },
-        {
-            sNo: 2,
-            title: 'this is title',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            description: 'this is desctions',
-            status: 'pending'
-        },
-        {
-            sNo: 2,
-            title: 'this is title',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            description: 'this is desctions',
-            status: 'pending'
-        },
-        {
-            sNo: 1,
-            title: 'this is title',
-            description: 'this is desctions',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            status: 'pending'
-        },
-        {
-            sNo: 2,
-            title: 'this is title',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            description: 'this is desctions',
-            status: 'pending'
-        },
-        {
-            sNo: 2,
-            title: 'this is title',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            description: 'this is desctions',
-            status: 'pending'
-        },
-        {
-            sNo: 1,
-            title: 'this is title',
-            description: 'this is desctions',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            status: 'pending'
-        },
-        {
-            sNo: 2,
-            title: 'this is title',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            description: 'this is desctions',
-            status: 'pending'
-        },
-        {
-            sNo: 2,
-            title: 'this is title',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            description: 'this is desctions',
-            status: 'pending'
-        },
-        {
-            sNo: 1,
-            title: 'this is title',
-            description: 'this is desctions',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            status: 'pending'
-        },
-        {
-            sNo: 2,
-            title: 'this is title',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            description: 'this is desctions',
-            status: 'pending'
-        },
-        {
-            sNo: 2,
-            title: 'this is title',
-            thumbnail: 'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
-            description: 'this is desctions',
-            status: 'pending'
-        }
-
-    ]
+    const editPage = (index)=>{
+        Nav(`/dashboard/create`, {state:{title:userAllBlogs[index].title, description:userAllBlogs[index].description, type: 'edit', index, id:userAllBlogs[index]._id }});  
+    }
+    const openSingleBlog = (index)=>{
+        Nav(`/dashboard/singleBlog`,{state:{index:index}})
+    }
     return (
         <>
             
@@ -140,7 +63,7 @@ const AllBlogs = () => {
                         position={'relative'}
 
                     >
-                        <Table tableData={tableData} moreFun={openSingleBlog}/>
+                        <Table tableData={userAllBlogs} moreFun={openSingleBlog}  deleteAction={deleteBlog} editFun={editPage}/>
 
 
                     </VStack>

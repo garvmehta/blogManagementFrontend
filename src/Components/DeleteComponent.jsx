@@ -12,7 +12,7 @@ import {
     CloseButton
 } from '@chakra-ui/react'
 
-const DeleteModal = ({ isOpen, onClose }) => {
+const DeleteModal = ({ isOpen, onClose , action ,index }) => {
 
     return (
         <>
@@ -37,6 +37,7 @@ const DeleteModal = ({ isOpen, onClose }) => {
                         _hover={{backgroundColor:'transparent'}}
                         variant='outline' borderWidth={2} borderColor={'red.500'} color={'red.500'}onClick={onClose} >Cancel</Button>
                         <Button 
+                        onClick={()=>action(index)}
                         _hover={{backgroundColor:'defualt'}}
                         colorScheme='red' mx={3} >
                             Delete

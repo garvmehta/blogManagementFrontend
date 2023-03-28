@@ -17,6 +17,7 @@ const Blogs = () => {
                              description={item.description}
                              thumnail={`${url}/image/${item.thumbnail}`}
                              isLiked={item.liked}
+                             index = {index}
                              />            
                         );
                     })

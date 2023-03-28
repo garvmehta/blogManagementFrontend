@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
-import { EditorState } from 'draft-js';
+import React, { useEffect, useState } from 'react';
+import { EditorState , ContentState, convertFromHTML, convertToRaw} from 'draft-js';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import draftToHtml from 'draftjs-to-html';
 
-function TextEditor() {
+function TextEditor({initalValue, onChange}) {
+  const blockHTML = convertFromHTML(initalValue)
+  const content = ContentState.createFromBlockArray(
+    blockHTML.contentBlocks,
+    blockHTML.entityMap
+  );
   const [editorState, setEditorState] = useState(
-    () => EditorState.createEmpty(),
+    () => EditorState.createWithContent(content),
   );
 
+    // useEffect(()=>{
+    //   setEditorState(EditorState.createWithContent)
+    // },[])
   return (
     <div className="App">
       <Editor
@@ -18,7 +27,13 @@ function TextEditor() {
         }
 
         editorState={editorState}
-        onEditorStateChange={setEditorState}
+        onEditorStateChange={(editorState)=>{
+          setEditorState(editorState);
+          // console.log();
+          onChange((state)=>{
+            return { ...state, description : draftToHtml(convertToRaw(editorState.getCurrentContent()))};
+          });
+        }}
         wrapperClassName="demo-wrapper"
         editorClassName="editor-class editor-class"
       // editorClassName="demo-editor p-2"

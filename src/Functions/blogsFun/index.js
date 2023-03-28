@@ -1,11 +1,10 @@
 import { baseUrl, Response } from "../../Config/constant";
 import Store from '../../Store';
-import { addBlogs } from "../../Store/Slices/blogSlice";
+import { addBlogs, addComment, likeBlog } from "../../Store/Slices/blogSlice";
+import { editSingleBlog, removeUserBlog } from "../../Store/Slices/dashboardSlice";
 const {dispatch}  = Store;
 export const getAllBlogFun = async ({status, userId})=>{
     try{
-        
-    
          const res =  await baseUrl.get(`/blogs/getByStatus/?status=${status}&userId=${userId}`);
          
          console.log(res.data);
@@ -31,11 +30,12 @@ export const getAllBlogFun = async ({status, userId})=>{
 }
 
 
-export const editBlogFun = async ({blogId, toUpdate })=>{
-    try{
-        
+export const editBlogFun = async ({blogId, toUpdate, index })=>{
     
-         const res =  await baseUrl.put(`/blogs/update/${blogId}`,toUpdate);
+    try{
+        console.log(blogId, index, toUpdate );
+        dispatch(editSingleBlog({index, toUpdate}))
+         const res =  await baseUrl.put(`/blogs/update/${blogId}`,toUpdate); 
          console.log(res.data);
          if(res.data.status){
              return {
@@ -58,11 +58,10 @@ export const editBlogFun = async ({blogId, toUpdate })=>{
     
 }
 
-export const deleteBlogFun = async ({blogId})=>{
+export const deleteBlogFun = async ({index, id})=>{
     try{
-        
-    
-         const res =  await baseUrl.delete(`/blogs/delete/${blogId}`);
+        dispatch(removeUserBlog(index));
+         const res =  await baseUrl.delete(`/blogs/delete/${id}`);
          console.log(res.data);
          if(res.data.status){
              return {
@@ -85,11 +84,11 @@ export const deleteBlogFun = async ({blogId})=>{
     
 }
 
-export const addCommentFun = async ({blogId, commentData})=>{
+export const addCommentFun = async ({userId, commentData, index})=>{
     try{
-        
-    
-         const res =  await baseUrl.post(`/blogs/comments/${blogId}`, commentData);
+        console.log(commentData);
+        dispatch(addComment({commentDetails:commentData,index}));
+         const res =  await baseUrl.post(`/blogs/comments/${userId}`, commentData);
          console.log(res.data);
          if(res.data.status){
              return {
@@ -110,4 +109,25 @@ export const addCommentFun = async ({blogId, commentData})=>{
         }
     }
     
+}
+
+export const likeBlogFun = async({userId, name, blogId, status, index })=>{
+    try{
+        const body = {
+            name,
+            blog_id:blogId,
+            status
+        }
+        dispatch(likeBlog({index, isLiked: status}));
+        const res = await baseUrl.post(`/blogs/like/${userId}`, body);
+        if(res.data.status){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    catch(error){
+        return false
+    }
 }

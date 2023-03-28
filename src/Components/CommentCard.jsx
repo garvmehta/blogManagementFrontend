@@ -1,6 +1,11 @@
-import { HStack, Box, Text, Image, VStack } from "@chakra-ui/react"
+import { HStack, Box, Text, Image, VStack, Flex } from "@chakra-ui/react"
+import { useMemo } from "react";
 
-const CommmentCard = ({style={marginTop:'5%'}, width='100%', shadow='lg' }) => {
+const CommmentCard = ({style={marginTop:'5%'}, width='100%', shadow='lg', data }) => {
+    const {userName = "",comment=""} = useMemo(()=>{
+        return data;
+    },[data]);
+    
     return <>
         
         <VStack p={2}
@@ -14,34 +19,41 @@ const CommmentCard = ({style={marginTop:'5%'}, width='100%', shadow='lg' }) => {
             <HStack 
             
             >
-                <Box
-                    width={30}
-                    height={30}
-                    rounded={'full'}
-                    overflow={'hidden'}
+                <Flex
+                rounded={"full"}
+                overflow={"hidden"}
+                w={"30px"}
+                align={"center"}
+                bg={"blue.300"}
+                justifyContent={"center"}
+                h={"30px"}
+              >
+                <Text
+                  fontWeight={"semibold"}
+                  color={"white"}
+                  textTransform={"capitalize"}
                 >
-                    <Image
-                        w={'auto'}
-                        h={'100%'}
-
-                        src="https://bit.ly/dan-abramov"
-                    />
-                </Box>
+                  {String(userName).charAt(0)}
+                </Text>
+                
+              </Flex>
                 <Text
                 fontSize={'sm'}
                 fontWeight={'semibold'}
+                textTransform={'capitalize'}
                 >
-                    UserName
+                    {userName}
                 </Text>
             </HStack>
             <Text
             fontSize={'sm'}
             px={1}
             >
-                Nice Blog
+                {comment}
             </Text>
         </VStack>
     </>
+    
 }
 
 export default CommmentCard

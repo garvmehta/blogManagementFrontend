@@ -7,6 +7,7 @@ import SignUp from "../Pages/SignUp/";
 import UserDashBoard from "../Pages/UserDashboard/UserDashboard";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Store/Slices/userSlice";
+import { getAllBlogFun } from "../Functions/blogsFun";
 
 const MainRouting = () => {
     const userDispatch = useDispatch();
@@ -20,8 +21,10 @@ const MainRouting = () => {
             console.log('user data from local '); 
             console.log(user);
             userDispatch(addUser(user))
+             getAllBlogFun({ status: 'approved', userId: user._id });
         }
         else {
+            getAllBlogFun({ status: 'approved', userId: "" });
             // const user = new User({_id:""});
             // userDispatch(addUser({ _id:'', name: '', email: '', loggedStatus: false }))
         }
