@@ -22,7 +22,7 @@ const UserDashboardRouting = () => {
     },[])
     return (
         <>
-            {(userType == "user") ?
+            {(UserState.type === 'user') ?
                 <Routes>
 
                     <Route exact path={'/'} element={<UserDashBoardHome />} />

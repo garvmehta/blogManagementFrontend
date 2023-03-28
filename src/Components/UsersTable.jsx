@@ -1,15 +1,15 @@
-import { HStack, Box, Text, Button, Image , useDisclosure} from "@chakra-ui/react"
+import { HStack, Box, Text, Button, Image, useDisclosure } from "@chakra-ui/react"
 import { primaryColor } from "../constant";
 import DeleteModal from "./DeleteComponent";
 const tableRowBg = '#D6EAF8';
 const UserTable = ({ tableData, editFun, moreFun }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const deleteFun =()=>{
+    const deleteFun = () => {
         onOpen();
     }
     return (
         <>
-            <DeleteModal isOpen={isOpen} onClose={onClose}/>        
+            <DeleteModal isOpen={isOpen} onClose={onClose} />
             <HStack
                 position={'sticky'}
                 top={0}
@@ -142,7 +142,7 @@ const UserTable = ({ tableData, editFun, moreFun }) => {
                                     px={2}
                                     py={1}
                                     textTransform={'capitalize'}
-                                    // borderRadius={'full'}
+                                // borderRadius={'full'}
                                 >
 
                                     {row.totalBlogs}
@@ -171,7 +171,7 @@ const UserTable = ({ tableData, editFun, moreFun }) => {
                                         >More</Text>
                                     </Box>
 
-                                    
+
 
                                     <Box
                                         bg={'white'}
